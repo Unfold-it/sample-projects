@@ -1,30 +1,47 @@
 # Dependencies
-node_modules/
+**/node_modules/
 .pnp
 .pnp.js
 
-# Environment
+# Environment — never commit secrets
 .env
 .env.local
 .env.*.local
+# Example files are intentionally committed
+!.env.example
+!.env.local.example
 
 # Next.js
-.next/
-out/
+**/.next/
+**/out/
 
-# Build
-dist/
-build/
+# Build output
+**/dist/
+**/build/
 
-# Misc
-.DS_Store
-*.pem
+# TypeScript
+*.tsbuildinfo
+
+# Package manager locks — keep package-lock.json, ignore others
+yarn.lock
+pnpm-lock.yaml
+.yarn/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
 
 # Editor
 .idea/
 .vscode/
 *.swp
 *.swo
+
+# Turbo / monorepo tooling
+.turbo/
