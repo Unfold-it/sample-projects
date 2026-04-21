@@ -1,0 +1,127 @@
+{
+  "name": "AI Safety, Alignment & Ethics for Engineers",
+  "track": "ai-safety-ethics",
+  "description": "A practical guide to building trustworthy AI systems. Covers alignment concepts, safety techniques, bias and fairness, red-teaming, regulatory landscape (EU AI Act, NIST framework), and engineering practices for responsible AI deployment.",
+  "targetAudience": "Engineers, tech leads, and engineering managers responsible for shipping AI features in consumer or enterprise products",
+  "estimatedWeeks": 5,
+  "steps": [
+    {
+      "title": "AI Safety & Alignment: Core Concepts",
+      "description": "Understand the alignment problem, goal misgeneralization, reward hacking, and why building safe AI is fundamentally hard. Survey alignment research approaches.",
+      "substeps": [
+        {
+          "title": "Study: Alignment problem and why it matters now",
+          "type": "research"
+        },
+        {
+          "title": "Study: RLHF, Constitutional AI, and RLAIF approaches",
+          "type": "research"
+        },
+        {
+          "title": "Discuss: Which failure modes are relevant to your product",
+          "type": "decision"
+        }
+      ]
+    },
+    {
+      "title": "Bias, Fairness & Representation",
+      "description": "Understand how bias enters AI systems through data, labels, and architecture. Learn fairness definitions (demographic parity, equalized odds) and mitigation techniques.",
+      "substeps": [
+        {
+          "title": "Study: Types of bias in training data and model behavior",
+          "type": "research"
+        },
+        {
+          "title": "Audit: Bias analysis on a public model or dataset",
+          "type": "work"
+        },
+        {
+          "title": "Build: Fairness metrics for your team's specific use case",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Document and publish your fairness findings",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Red-Teaming & Adversarial Testing",
+      "description": "Systematically probe your AI systems for safety failures. Run structured red-team exercises, document failure modes, and build a remediation roadmap.",
+      "substeps": [
+        {
+          "title": "Study: Red-teaming methodology and toolkits",
+          "type": "research"
+        },
+        {
+          "title": "Build: Red-team prompt library for your use case",
+          "type": "work"
+        },
+        {
+          "title": "Test: 20 adversarial attacks against your system",
+          "type": "work"
+        },
+        {
+          "title": "Document: Vulnerability report with severity ratings",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Retest after mitigations — confirm fixes hold",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Content Safety & Output Guardrails",
+      "description": "Design and implement content safety guardrails: input filters, output classifiers, human escalation paths, and monitoring for harmful content in production.",
+      "substeps": [
+        {
+          "title": "Study: Available content safety APIs and classifiers",
+          "type": "research"
+        },
+        {
+          "title": "Design: Content policy for your product's risk tolerance",
+          "type": "decision"
+        },
+        {
+          "title": "Build: Input/output filtering pipeline",
+          "type": "work"
+        },
+        {
+          "title": "Build: Human escalation workflow for edge cases",
+          "type": "work"
+        },
+        {
+          "title": "Verify: False positive/negative rates meet policy thresholds",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Regulatory Landscape & Compliance",
+      "description": "Navigate AI regulation: EU AI Act risk categories, NIST AI RMF, GDPR implications for AI, and emerging sector-specific rules. Build a compliance checklist for your team.",
+      "substeps": [
+        {
+          "title": "Study: EU AI Act high-risk categories and obligations",
+          "type": "research"
+        },
+        {
+          "title": "Study: NIST AI Risk Management Framework",
+          "type": "research"
+        },
+        {
+          "title": "Assess: Which regulatory tier your product falls under",
+          "type": "decision"
+        },
+        {
+          "title": "Build: Compliance checklist and documentation template",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Legal/compliance team reviews and signs off",
+          "type": "verification"
+        }
+      ]
+    }
+  ]
+}

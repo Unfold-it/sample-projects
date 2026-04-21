@@ -1,0 +1,27 @@
+{
+  "_comment": "Cursor IDE MCP configuration for the Unfold AI Academy",
+  "_instructions": [
+    "1. Open Cursor → Settings → MCP (or Cursor Settings → Features → MCP Servers)",
+    "2. Add the server config below.",
+    "3. Replace YOUR_UNFOLD_API_KEY with your key from app.unfoldit.com → Organization → API Keys",
+    "4. Restart Cursor.",
+    "5. You can now use Unfold tools directly in Cursor's AI chat."
+  ],
+  "mcpServers": {
+    "unfold": {
+      "command": "npx",
+      "args": ["-y", "@unfoldit/mcp-server"],
+      "env": {
+        "UNFOLD_API_KEY": "YOUR_UNFOLD_API_KEY"
+      }
+    }
+  },
+  "_cursor_settings_path": "~/.cursor/mcp.json",
+  "_example_prompts": [
+    "I just finished implementing the RAG pipeline. Create a learning goal for me to master LLM observability next.",
+    "Our team is starting a new AI project. Set up learning paths for everyone based on their role.",
+    "Check if there are any learners who haven't touched their AI goals this week.",
+    "I want to assess my prompt engineering skills before starting the advanced module.",
+    "Generate a learning plan to help me go from beginner to intermediate in AI safety."
+  ]
+}

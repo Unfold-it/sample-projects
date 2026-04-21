@@ -1,0 +1,125 @@
+{
+  "name": "AI Fundamentals for Modern Developers",
+  "track": "ai-fundamentals",
+  "description": "A practical foundation in AI and machine learning concepts tailored for software engineers. Covers core theory, modern LLMs, embeddings, vector search, and responsible AI deployment — all through a hands-on engineering lens.",
+  "targetAudience": "Software engineers with no prior ML background who want to understand and work with AI systems",
+  "estimatedWeeks": 6,
+  "steps": [
+    {
+      "title": "AI & ML Landscape: What Every Engineer Must Know",
+      "description": "Understand the current AI ecosystem: the difference between classical ML, deep learning, foundation models, and generative AI. Map these to real engineering use cases.",
+      "substeps": [
+        {
+          "title": "Read: The three waves of AI and where we are now",
+          "type": "research"
+        },
+        {
+          "title": "Identify: How AI is used in 5 systems you already use",
+          "type": "work"
+        },
+        {
+          "title": "Decide: Which AI paradigm is relevant to your team's product",
+          "type": "decision"
+        }
+      ]
+    },
+    {
+      "title": "Language Models: How LLMs Actually Work",
+      "description": "Demystify transformer architecture, tokenization, attention mechanisms, and training at a conceptual level. Understand context windows, temperature, and sampling strategies.",
+      "substeps": [
+        {
+          "title": "Study: Transformer architecture in plain English",
+          "type": "research"
+        },
+        {
+          "title": "Experiment: Explore tokenization with tiktoken or similar",
+          "type": "work"
+        },
+        {
+          "title": "Experiment: Observe the effect of temperature on outputs",
+          "type": "work"
+        }
+      ]
+    },
+    {
+      "title": "Embeddings & Semantic Search",
+      "description": "Understand vector embeddings and how they enable semantic similarity, classification, and retrieval-augmented generation (RAG). Build a minimal semantic search system.",
+      "substeps": [
+        {
+          "title": "Learn: What embeddings are and how they encode meaning",
+          "type": "research"
+        },
+        {
+          "title": "Build: Generate embeddings for a small document set",
+          "type": "work"
+        },
+        {
+          "title": "Build: Semantic search with cosine similarity",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Compare semantic vs keyword search quality",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Vector Databases: Scaling Semantic Search",
+      "description": "Explore purpose-built vector databases (Pinecone, Weaviate, Chroma, pgvector). Understand indexing strategies, ANN search, and when to use each option.",
+      "substeps": [
+        {
+          "title": "Compare: Pinecone vs Weaviate vs Chroma vs pgvector",
+          "type": "research"
+        },
+        {
+          "title": "Build: Index 1,000 documents in a local vector DB",
+          "type": "work"
+        },
+        {
+          "title": "Benchmark: Query latency at different scales",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Model Evaluation & Benchmarking",
+      "description": "Learn how to measure AI model quality. Understand evaluation metrics (accuracy, BLEU, ROUGE, LLM-as-judge) and how to run repeatable evals for your use case.",
+      "substeps": [
+        {
+          "title": "Study: Evaluation frameworks and what they measure",
+          "type": "research"
+        },
+        {
+          "title": "Build: A simple eval harness for an LLM task",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Run your eval against two different models",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Responsible AI: Bias, Fairness, and Production Safety",
+      "description": "Understand how bias enters AI systems, how to detect and mitigate it, content safety considerations, and how to build guardrails for production deployments.",
+      "substeps": [
+        {
+          "title": "Study: Sources of bias in AI training data and models",
+          "type": "research"
+        },
+        {
+          "title": "Audit: Run a bias analysis on a public dataset",
+          "type": "work"
+        },
+        {
+          "title": "Design: Content safety guardrails for your team's use case",
+          "type": "decision"
+        },
+        {
+          "title": "Verify: Review output against fairness checklist",
+          "type": "verification"
+        }
+      ]
+    }
+  ]
+}

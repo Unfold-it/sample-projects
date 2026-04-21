@@ -1,0 +1,137 @@
+{
+  "name": "Prompt Engineering Mastery",
+  "track": "prompt-engineering",
+  "description": "Master the craft of designing, testing, and iterating prompts for production LLM applications. From basic principles to advanced patterns — few-shot, chain-of-thought, structured output, RAG prompts, and agentic tool-use.",
+  "targetAudience": "Engineers, product managers, and technical leads who build or oversee AI-powered features",
+  "estimatedWeeks": 4,
+  "steps": [
+    {
+      "title": "Prompt Design Fundamentals",
+      "description": "Understand the core anatomy of a prompt: instructions, context, examples, output format. Learn what the model sees vs what you write, and the impact of each element.",
+      "substeps": [
+        {
+          "title": "Study: Instruction tuning and how models follow directions",
+          "type": "research"
+        },
+        {
+          "title": "Experiment: Zero-shot vs one-shot vs few-shot prompting",
+          "type": "work"
+        },
+        {
+          "title": "Measure: Track quality changes as you modify each element",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Chain-of-Thought and Reasoning Patterns",
+      "description": "Use chain-of-thought (CoT), self-consistency, and step-back prompting to significantly improve reasoning quality for complex tasks.",
+      "substeps": [
+        {
+          "title": "Learn: Why CoT works and when to use it",
+          "type": "research"
+        },
+        {
+          "title": "Build: Standard vs CoT prompts for a logic problem",
+          "type": "work"
+        },
+        {
+          "title": "Build: Self-consistency sampling for higher reliability",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Accuracy improvement on a test set",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Structured Output & Schema-Driven Prompting",
+      "description": "Reliably extract structured data from LLMs. Use JSON mode, function calling, and schema-based constraints to get predictable machine-readable output.",
+      "substeps": [
+        {
+          "title": "Study: JSON mode, function calling, and structured outputs API",
+          "type": "research"
+        },
+        {
+          "title": "Build: Extract structured data from unstructured text",
+          "type": "work"
+        },
+        {
+          "title": "Build: Retry logic for malformed outputs",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Parse success rate over 50 samples",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "RAG Prompt Patterns",
+      "description": "Design prompts for Retrieval-Augmented Generation: format retrieved context, handle conflicting sources, instruct the model to cite evidence, and avoid hallucination.",
+      "substeps": [
+        {
+          "title": "Study: RAG architecture and where prompting fits",
+          "type": "research"
+        },
+        {
+          "title": "Build: Context injection templates with source citation",
+          "type": "work"
+        },
+        {
+          "title": "Build: Prompt that handles conflicting retrieved documents",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Hallucination rate with/without citation instructions",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Prompt Safety & Red-Teaming",
+      "description": "Harden prompts against adversarial inputs: prompt injection, jailbreaks, data exfiltration. Learn systematic red-teaming techniques and how to build robust system prompts.",
+      "substeps": [
+        {
+          "title": "Study: Common prompt injection and jailbreak patterns",
+          "type": "research"
+        },
+        {
+          "title": "Red-team: 10 adversarial attacks on your own prompts",
+          "type": "work"
+        },
+        {
+          "title": "Build: Defense strategies (input validation, output checks)",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Before/after security posture",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Prompt Testing, Versioning & Iteration",
+      "description": "Treat prompts as production artifacts. Set up a prompt registry, automated eval pipeline, A/B testing, and regression testing so you can iterate without regressions.",
+      "substeps": [
+        {
+          "title": "Design: Prompt versioning strategy (file, DB, or registry)",
+          "type": "decision"
+        },
+        {
+          "title": "Build: Automated eval harness for your prompt suite",
+          "type": "work"
+        },
+        {
+          "title": "Build: A/B test two prompt versions on 50 samples",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Catch a regression using your eval pipeline",
+          "type": "verification"
+        }
+      ]
+    }
+  ]
+}

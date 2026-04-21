@@ -1,0 +1,197 @@
+{
+  "name": "Building Production LLM Applications",
+  "track": "llm-integration",
+  "description": "A hands-on engineering track for integrating large language models into backend services. Covers API patterns, streaming, function calling, context management, caching, observability, cost control, and production readiness.",
+  "targetAudience": "Backend and full-stack engineers who need to ship LLM-powered features at production scale",
+  "estimatedWeeks": 8,
+  "steps": [
+    {
+      "title": "LLM API Fundamentals",
+      "description": "Master the OpenAI / Anthropic / Gemini API contracts: completions, messages, roles, tokens, stop sequences, and error codes. Understand the request/response lifecycle.",
+      "substeps": [
+        {
+          "title": "Study: API reference for your target provider",
+          "type": "research"
+        },
+        {
+          "title": "Build: Minimal API client with retry and timeout",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Handle all documented error codes gracefully",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Streaming Responses",
+      "description": "Implement server-sent events (SSE) streaming to display LLM tokens as they arrive. Handle partial JSON, stream cancellation, and connection drops.",
+      "substeps": [
+        {
+          "title": "Study: SSE protocol and LLM streaming APIs",
+          "type": "research"
+        },
+        {
+          "title": "Build: Backend streaming endpoint with proper headers",
+          "type": "work"
+        },
+        {
+          "title": "Build: Frontend consumer that renders tokens incrementally",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Graceful handling of mid-stream cancellation",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Function Calling & Tool Use",
+      "description": "Give LLMs the ability to call your APIs, query databases, and use external tools. Implement multi-turn tool loops, validate inputs, and handle tool errors safely.",
+      "substeps": [
+        {
+          "title": "Study: Function calling schema and tool loop pattern",
+          "type": "research"
+        },
+        {
+          "title": "Build: Register 3 tools (search, lookup, action)",
+          "type": "work"
+        },
+        {
+          "title": "Build: Recursive tool loop with max-iterations guard",
+          "type": "work"
+        },
+        {
+          "title": "Build: Input validation before executing tool calls",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Tool call injection attempt is rejected",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Context Window Management",
+      "description": "Handle long conversations and large documents within finite context windows. Implement summarization, sliding windows, context compression, and memory management strategies.",
+      "substeps": [
+        {
+          "title": "Study: Token counting and context window limits per model",
+          "type": "research"
+        },
+        {
+          "title": "Build: Conversation trimmer that preserves system + recent turns",
+          "type": "work"
+        },
+        {
+          "title": "Build: Summarize-and-compress for long contexts",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Quality vs truncated-context baseline",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Retrieval-Augmented Generation (RAG)",
+      "description": "Build a RAG pipeline end-to-end: document ingestion, chunking, embedding, vector retrieval, and context injection. Optimize for retrieval quality and latency.",
+      "substeps": [
+        {
+          "title": "Study: RAG architecture and retrieval quality factors",
+          "type": "research"
+        },
+        {
+          "title": "Build: Document ingestion and chunking pipeline",
+          "type": "work"
+        },
+        {
+          "title": "Build: Semantic retrieval with pgvector or Chroma",
+          "type": "work"
+        },
+        {
+          "title": "Build: RAG-augmented query endpoint",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Hallucination rate drops with RAG context",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Prompt Caching & Latency Optimization",
+      "description": "Reduce latency and cost with prompt caching. Profile your LLM calls, identify bottlenecks, and apply caching, batching, and request coalescing.",
+      "substeps": [
+        {
+          "title": "Study: Anthropic/OpenAI prompt caching mechanics and pricing",
+          "type": "research"
+        },
+        {
+          "title": "Measure: Baseline latency and cost per request",
+          "type": "work"
+        },
+        {
+          "title": "Build: Semantic cache with TTL for repeated queries",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Cache hit rate and p95 latency improvement",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Observability & Evaluation in Production",
+      "description": "Add the instrumentation needed to operate an LLM service: structured logging, latency tracing, cost tracking, quality metrics, and alerting on regressions.",
+      "substeps": [
+        {
+          "title": "Study: LLM observability tools (LangSmith, Langfuse, OpenTelemetry)",
+          "type": "research"
+        },
+        {
+          "title": "Build: Structured log for every LLM call (tokens, latency, cost)",
+          "type": "work"
+        },
+        {
+          "title": "Build: LLM-as-judge eval for production traffic sample",
+          "type": "work"
+        },
+        {
+          "title": "Build: Alert on quality regression or cost spike",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Dashboard shows cost and quality trend over 7 days",
+          "type": "verification"
+        }
+      ]
+    },
+    {
+      "title": "Security, Rate Limiting & Cost Control",
+      "description": "Harden your LLM service against abuse and runaway costs. Implement per-user rate limits, budget caps, output sanitization, and prompt injection defenses.",
+      "substeps": [
+        {
+          "title": "Study: OWASP LLM Top 10 attack vectors",
+          "type": "research"
+        },
+        {
+          "title": "Build: Per-user token budget with hard stop",
+          "type": "work"
+        },
+        {
+          "title": "Build: Input/output sanitization pipeline",
+          "type": "work"
+        },
+        {
+          "title": "Build: Rate limiter with graceful degradation",
+          "type": "work"
+        },
+        {
+          "title": "Verify: Injection attempt is caught and logged",
+          "type": "verification"
+        }
+      ]
+    }
+  ]
+}

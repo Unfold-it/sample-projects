@@ -1,0 +1,47 @@
+{
+  "_comment": "Unfold AI Teams — Claude Desktop MCP Configuration",
+  "_instructions": [
+    "1. Copy the 'mcpServers' block into your Claude Desktop config.",
+    "   macOS: ~/Library/Application Support/Claude/claude_desktop_config.json",
+    "   Windows: %APPDATA%\\Claude\\claude_desktop_config.json",
+    "2. Replace YOUR_UNFOLD_API_KEY with your key from app.unfoldit.com → Organization → API Keys",
+    "3. Restart Claude Desktop.",
+    "4. Claude can now run the full 5-phase AI Academy ecosystem."
+  ],
+  "mcpServers": {
+    "unfold": {
+      "command": "npx",
+      "args": ["-y", "@unfoldit/mcp-server"],
+      "env": {
+        "UNFOLD_API_KEY": "YOUR_UNFOLD_API_KEY"
+      }
+    }
+  },
+  "_phase_1_assess": [
+    "Assess the backend team on RAG skills before we start the knowledge base project. Anyone below medium proficiency needs a targeted learning plan.",
+    "Generate an LLM integration assessment for our new backend hire. She has strong Python skills but has never worked with LLMs. Target: medium proficiency, 8 questions.",
+    "Run a team-wide skill assessment on prompt engineering. I want to see who's ready and who has gaps before we kick off the AI project."
+  ],
+  "_phase_2_enroll": [
+    "Create personalized AI learning paths for our 4-person RAG project team: one backend engineer (Python/FastAPI), one frontend engineer (React/TypeScript), one DevOps engineer (Kubernetes/AWS), and one data engineer (Python/HuggingFace). Cohort: spring-2026.",
+    "Enroll our new ML engineer in a focused LLM integration track. She scored low on the assessment — create a high-priority plan that targets her specific gaps.",
+    "Set up our entire platform team on AI learning paths. Tag everything with cohort=spring-2026 and department=platform so I can track them separately."
+  ],
+  "_phase_4_monitor": [
+    "Show me the cohort health score for spring-2026. Who's completing, who's stuck, and where are engineers dropping off in the funnel?",
+    "Which track has the lowest completion rate this quarter — backend, frontend, devops, or data-ml?",
+    "Show me at-risk learners who haven't been active in 5 days. I want to reach out before they disengage.",
+    "Give me a Q1 2026 progress report for the entire AI academy cohort."
+  ],
+  "_phase_5_improve": [
+    "Step 4 is a stall point — 79% completed the previous step but only 55% got through this one. What should I do?",
+    "Three engineers haven't touched their goals in 10 days. Find them and create targeted re-engagement plans.",
+    "65% of my team is below target on RAG. Generate focused learning paths from the assessment results.",
+    "The system shows our hardest steps have no video resources. Which steps need videos added and what should they cover?"
+  ],
+  "_platform_integration": [
+    "Our onboarding portal needs to enroll a new engineer. Assess them on LLM API integration, then create a personalized goal. Return the claim link so we can put it in the welcome email.",
+    "I need to embed live progress data for 10 engineers in our internal L&D dashboard. How do I query that from Unfold?",
+    "Our HR system is triggering a new engineer enrollment. Assess them on Python and AI fundamentals, create a goal with cohort=spring-2026, and return the claim link."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "unfold-ai-academy",
+  "version": "1.0.0",
+  "description": "Unfold AI Teams — AI Academy web app and CLI demo",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "check-capabilities": "tsx scripts/07-check-capabilities.ts",
+    "assess-and-enroll": "tsx scripts/01-assess-and-enroll.ts",
+    "batch-onboard": "tsx scripts/02-batch-onboarding.ts",
+    "import-curriculum": "tsx scripts/03-import-curriculum.ts",
+    "analytics": "tsx scripts/04-cohort-analytics.ts",
+    "at-risk": "tsx scripts/05-at-risk-intervention.ts",
+    "full-academy": "tsx scripts/06-full-academy-demo.ts",
+    "ai-insights": "tsx scripts/08-ai-insights.ts",
+    "platform-integration": "tsx scripts/09-platform-integration.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0"
+  }
+}
