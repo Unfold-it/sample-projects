@@ -192,17 +192,59 @@ function QuizQuestion({ question, index, total, selected, onSelect, capabilities
 
 // ── Per-Question Result ────────────────────────────────────────────────────────
 
-function PerQuestionResult({ pq, question }: {
+function PerQuestionResult({ pq, question, userAnswerId }: {
   pq: { question_id: string; correct: boolean; awarded: number };
   question?: AssessmentQuestion;
+  userAnswerId?: string;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const userOption = question?.options.find((o) => o.id === userAnswerId);
+
   return (
-    <div className={`flex items-center gap-3 px-3 py-2 rounded-lg border text-xs ${
-      pq.correct ? "border-emerald-900/50 bg-emerald-950/30 text-emerald-300" : "border-red-900/50 bg-red-950/30 text-red-300"
+    <div className={`rounded-lg border text-xs overflow-hidden ${
+      pq.correct ? "border-emerald-900/50 bg-emerald-950/20" : "border-red-900/50 bg-red-950/20"
     }`}>
-      <span className="shrink-0 font-bold">{pq.correct ? "✓" : "✗"}</span>
-      <span className="flex-1 truncate">{question?.skill_facet ?? pq.question_id}</span>
-      <span className="shrink-0 font-medium">{pq.awarded > 0 ? `+${pq.awarded}` : "0"}</span>
+      <button
+        onClick={() => setExpanded((v) => !v)}
+        className="w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-white/5 transition-colors"
+      >
+        <span className={`shrink-0 font-bold ${pq.correct ? "text-emerald-400" : "text-red-400"}`}>
+          {pq.correct ? "✓" : "✗"}
+        </span>
+        <span className="flex-1 min-w-0 text-slate-300 truncate">
+          {question?.stem ?? question?.skill_facet ?? pq.question_id}
+        </span>
+        <span className={`shrink-0 font-medium mr-1 ${pq.correct ? "text-emerald-400" : "text-slate-500"}`}>
+          {pq.awarded > 0 ? `+${pq.awarded}` : "0 pts"}
+        </span>
+        <span className="shrink-0 text-slate-600">{expanded ? "▲" : "▼"}</span>
+      </button>
+
+      {expanded && question && (
+        <div className="px-3 pb-3 pt-1 border-t border-white/5 space-y-1.5">
+          {question.options.map((opt) => {
+            const isSelected = opt.id === userAnswerId;
+            let style = "border-[var(--border)] text-slate-500";
+            if (isSelected) {
+              style = pq.correct
+                ? "border-emerald-600/60 bg-emerald-950/40 text-emerald-300 font-medium"
+                : "border-red-600/60 bg-red-950/40 text-red-300 font-medium";
+            }
+            return (
+              <div key={opt.id} className={`flex items-start gap-2 px-2.5 py-1.5 rounded-md border ${style}`}>
+                <span className="shrink-0 font-mono text-[10px] mt-0.5 opacity-60">{opt.id.toUpperCase()}</span>
+                <span className="flex-1">{opt.text}</span>
+                {isSelected && (
+                  <span className="shrink-0 text-[10px] opacity-70">{pq.correct ? "your answer ✓" : "your answer ✗"}</span>
+                )}
+              </div>
+            );
+          })}
+          {question.skill_facet && (
+            <p className="text-[10px] text-slate-600 pt-1">Skill facet: {question.skill_facet}</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -668,7 +710,7 @@ export function LearnerWorkPage() {
               <div className="space-y-2">
                 {score.per_question.map((pq) => {
                   const q = questions.find((qu) => qu.id === pq.question_id);
-                  return <PerQuestionResult key={pq.question_id} pq={pq} question={q} />;
+                  return <PerQuestionResult key={pq.question_id} pq={pq} question={q} userAnswerId={answers[pq.question_id]} />;
                 })}
               </div>
             </div>
