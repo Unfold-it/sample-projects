@@ -3,6 +3,7 @@ import type {
   GoalStatus, GoalListResponse, UnfoldResponse,
   AnalyticsResult, GenerateAssessmentResponse,
   ScoreAssessmentResponse, AssessmentCapabilities,
+  ImportPlanResponse, ClarifySubmitResponse, EnrichedStep,
 } from "./types";
 
 const BASE = (process.env.UNFOLD_API_URL ?? "https://api.unfoldit.com").replace(/\/+$/, "");
@@ -41,7 +42,7 @@ export const unfold = {
     context: p.context,
     goalContext: p.goalContext ?? "professional",
     priority: p.priority ?? "medium",
-    autoRespond: p.autoRespond ?? true,
+    autoRespond: p.autoRespond ?? false,
     clarificationAnswers: p.clarificationAnswers,
     claimExpiresInDays: p.claimExpiresInDays ?? 14,
     progressShare: p.progressShare !== false ? { enabled: true } : undefined,
@@ -97,4 +98,27 @@ export const unfold = {
   }) => req<ScoreAssessmentResponse>("POST", "/assessments/score", p),
 
   getCapabilities: () => req<AssessmentCapabilities>("GET", "/assessments/capabilities"),
+
+  submitClarification: (goalId: string, p: {
+    answers?: Record<string, string>;
+    acceptAgentAnswers?: boolean;
+  }) => req<ClarifySubmitResponse>("POST", `/goals/${goalId}/clarify/submit-all`, {
+    answers: p.answers ?? {},
+    acceptAgentAnswers: p.acceptAgentAnswers ?? true,
+  }),
+
+  importPlan: (p: {
+    title: string; description?: string;
+    steps: { title: string; description?: string; substeps?: { title: string; description?: string; type?: string }[] }[];
+    priority?: string;
+  }) => req<ImportPlanResponse>("POST", "/goals/import", {
+    title: p.title,
+    description: p.description,
+    steps: p.steps,
+    goalContext: "professional",
+    priority: p.priority ?? "medium",
+    enrich: true,
+    claimExpiresInDays: 14,
+    progressShare: { enabled: true },
+  }),
 };

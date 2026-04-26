@@ -86,6 +86,33 @@ export interface AssessmentCapabilities {
   open_domain: boolean; token_ttl_seconds: number;
 }
 
+export interface EnrichedStep {
+  title: string;
+  description?: string | null;
+  order: number;
+  dependencies?: string[];
+  isCriticalPath?: boolean;
+  severity?: string | null;
+  duration?: string | null;
+  complexity?: string | null;
+  isQuickWin?: boolean;
+}
+
+export interface ImportPlanResponse {
+  goalId: string;
+  status: string;
+  planGenerationStatus: string;
+  steps?: EnrichedStep[];
+  claimLink?: string;
+  progressLink?: string;
+}
+
+export interface ClarifySubmitResponse {
+  goalId: string;
+  status: string;
+  planGenerationStatus: string;
+}
+
 // Academy-specific
 export type Track = "backend" | "frontend" | "devops" | "data-ml";
 export type Band = "beginner" | "low" | "medium" | "high";

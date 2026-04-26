@@ -12,8 +12,9 @@ const DEMO_QUESTIONS = [
 
 export async function POST(req: Request) {
   const body = await req.json() as {
-    skill: string; role: string; techStack: string[]; targetProficiency: string;
-    projectTitle?: string;
+    skill: string; skillDescription?: string; skillFacts?: string[];
+    role: string; techStack: string[]; targetProficiency: string;
+    projectTitle?: string; projectDescription?: string;
   };
 
   if (!process.env.UNFOLD_API_KEY) {
@@ -29,11 +30,19 @@ export async function POST(req: Request) {
   }
 
   try {
+    const skillContext = [
+      `Role: ${body.role}.`,
+      body.skillDescription ? `Skill focus: ${body.skillDescription}` : "",
+      body.skillFacts?.length ? `Key constraints: ${body.skillFacts.join("; ")}.` : "",
+      body.projectDescription ? `Project: ${body.projectDescription}` : "",
+      `Tech stack: ${body.techStack.join(", ")}.`,
+    ].filter(Boolean).join(" ");
+
     const result = await unfold.generateAssessment({
       work_item_context: {
         title: body.projectTitle ?? "RAG Knowledge Base Agent",
-        description: `Role: ${body.role}. Tech stack: ${body.techStack.join(", ")}.`,
-        domain_tags: [body.skill, ...body.techStack.slice(0, 2)],
+        description: skillContext,
+        domain_tags: [body.skill, ...body.techStack],
       },
       skill: body.skill,
       target_proficiency: body.targetProficiency as "beginner" | "low" | "medium" | "high",
