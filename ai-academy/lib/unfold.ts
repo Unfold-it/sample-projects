@@ -32,7 +32,17 @@ async function req<T>(method: string, path: string, body?: unknown): Promise<T> 
 export const unfold = {
   createGoal: (p: {
     title: string; description?: string;
-    context?: Record<string, unknown>;
+    context?: {
+      techStack?: string[];
+      teamSize?: number;
+      timeline?: string;
+      constraints?: string;
+      resources?: string;
+      successCriteria?: string;
+      experienceLevel?: string;
+      industry?: string;
+      additionalNotes?: string;
+    };
     goalContext?: string; priority?: string;
     autoRespond?: boolean; clarificationAnswers?: Record<string, string>;
     claimExpiresInDays?: number; progressShare?: boolean;

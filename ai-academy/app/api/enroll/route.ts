@@ -51,21 +51,38 @@ export async function POST(req: Request) {
 
   try {
     const title = body.goalTitle ?? `${body.role} AI Skills — ${body.name}`;
+
+    // Build additionalNotes with everything that doesn't fit a named UnfoldContext field.
+    // These become "EXPLICIT CONTEXT" in the clarification agent prompt, so the more
+    // specific this is, the higher confidence the agent can answer the questions.
+    const noteParts = [
+      body.assessmentScore != null
+        ? `Assessment result: scored ${body.assessmentScore.toFixed(0)}% — current proficiency is "${body.assessedBand}", target is "${body.experienceLevel}". Gap: ${body.assessmentGap} band(s).`
+        : null,
+      body.skillDescription
+        ? `Skill focus: ${body.skillDescription}`
+        : null,
+      body.skillFacts?.length
+        ? `Technical constraints for this skill: ${body.skillFacts.join("; ")}.`
+        : null,
+      body.workItemTitle
+        ? `Assigned work item: "${body.workItemTitle}".`
+        : null,
+      body.workItemDescription
+        ? `Work item detail: ${body.workItemDescription}`
+        : null,
+    ].filter(Boolean);
+
     const result = await unfold.createGoal({
       title,
       description: body.goalSummary ?? `AI readiness learning plan for ${body.name} (${body.role})`,
       context: {
-        tech_stack: body.techStack,
-        experience_level: body.assessedBand ?? body.experienceLevel,
+        techStack: body.techStack,
+        experienceLevel: body.assessedBand ?? body.experienceLevel,
         timeline: "6 weeks",
-        success_criteria: `Reach required proficiency in ${body.goalTitle?.split("—")[0]?.trim() ?? "AI skills"} for the ${body.role} role`,
-        skill_focus: body.skillDescription,
-        skill_requirements: body.skillFacts?.join("; "),
-        work_item: body.workItemTitle,
-        work_item_context: body.workItemDescription,
-        additional_notes: body.assessmentScore
-          ? `Assessment: ${body.assessmentScore.toFixed(0)}% (${body.assessedBand}). Gap: ${body.assessmentGap} band(s).`
-          : undefined,
+        successCriteria: `${body.name} (${body.role}) reaches the required proficiency band in ${body.goalTitle?.split("—")[0]?.trim() ?? "the target skill"} to complete the assigned work item.`,
+        constraints: `Role: ${body.role}. Stack: ${body.techStack.join(", ")}. Track: ${body.track}.`,
+        additionalNotes: noteParts.length ? noteParts.join(" ") : undefined,
       },
       autoRespond: false,
       goalContext: "professional",
