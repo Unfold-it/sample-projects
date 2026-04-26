@@ -51,7 +51,15 @@ export async function POST(req: Request) {
       },
     });
     return NextResponse.json({ ...result, demo: false });
-  } catch (err) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  } catch {
+    // Fall back to demo goal when backend is unreachable
+    return NextResponse.json({
+      goalId: "g-demo-" + Date.now(),
+      claimLink: "https://app.unfoldit.com/claim/demo-abc123",
+      progressLink: "https://app.unfoldit.com/progress/demo-abc123",
+      planGenerationStatus: "generating",
+      status: "draft",
+      demo: true,
+    });
   }
 }

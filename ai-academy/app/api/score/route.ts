@@ -50,7 +50,8 @@ export async function POST(req: Request) {
       request_id: `score-${Date.now()}`,
     });
     return NextResponse.json({ ...result, demo: false });
-  } catch (err) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  } catch {
+    // Fall back to demo scoring when backend is unreachable
+    return NextResponse.json(demoScore(body.answers));
   }
 }

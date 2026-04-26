@@ -42,7 +42,16 @@ export async function POST(req: Request) {
       request_id: `web-${body.role}-${Date.now()}`,
     });
     return NextResponse.json({ ...result, demo: false });
-  } catch (err) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+  } catch {
+    // Fall back to demo data when backend is unreachable (offline demos, local dev)
+    return NextResponse.json({
+      assessment_token: "demo_token_" + Date.now(),
+      questions: DEMO_QUESTIONS,
+      band_map: { beginner: [0, 10], low: [11, 50], medium: [51, 85], high: [86, 100] },
+      max_raw_score: 9,
+      target_band: body.targetProficiency,
+      model_meta: { provider: "demo", model_id: "demo", generated_at: new Date().toISOString() },
+      demo: true,
+    });
   }
 }
