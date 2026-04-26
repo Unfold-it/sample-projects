@@ -8,15 +8,17 @@ import type {
 
 const BASE = (process.env.UNFOLD_API_URL ?? "https://api.unfoldit.com").replace(/\/+$/, "");
 
-async function req<T>(method: string, path: string, body?: unknown): Promise<T> {
+async function req<T>(method: string, path: string, body?: unknown, timeoutMs?: number): Promise<T> {
   const key = process.env.UNFOLD_API_KEY;
   if (!key) throw new Error("UNFOLD_API_KEY not set");
 
+  const signal = timeoutMs ? AbortSignal.timeout(timeoutMs) : undefined;
   const res = await fetch(`${BASE}/api/v1/ext${path}`, {
     method,
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined,
     cache: "no-store",
+    signal,
   });
 
   if (!res.ok) {
@@ -57,7 +59,7 @@ export const unfold = {
     claimExpiresInDays: p.claimExpiresInDays ?? 14,
     progressShare: p.progressShare !== false ? { enabled: true } : undefined,
     metadata: p.metadata,
-  }),
+  }, 55_000),  // Tier 1 (autoRespond=false) takes up to 45s; 55s gives buffer
 
   getGoal: (id: string) => req<GoalStatus>("GET", `/goals/${id}`),
 

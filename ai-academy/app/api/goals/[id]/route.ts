@@ -1,10 +1,23 @@
 import { NextResponse } from "next/server";
 import { unfold } from "@/lib/unfold";
+import type { StepStatus } from "@/lib/types";
+
+function mapStep(s: StepStatus, i: number) {
+  return {
+    title: s.title,
+    description: s.description ?? null,
+    order: s.order ?? i + 1,
+    isCriticalPath: s.isCriticalPath ?? false,
+    isQuickWin: s.isQuickWin ?? false,
+    complexity: s.complexity ?? null,
+    duration: s.durationEstimate ?? null,
+  };
+}
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  if (!process.env.UNFOLD_API_KEY) {
+  if (!process.env.UNFOLD_API_KEY || id.startsWith("g-demo-")) {
     return NextResponse.json({
       goalId: id,
       planGenerationStatus: "completed",
@@ -26,7 +39,16 @@ export async function GET(_req: Request, { params }: { params: Promise<{ id: str
 
   try {
     const result = await unfold.getGoal(id);
-    return NextResponse.json(result);
+    return NextResponse.json({
+      goalId: result.goalId,
+      planGenerationStatus: result.planGenerationStatus,
+      status: result.status,
+      progress: result.progress,
+      claimLink: null,
+      progressLink: result.progressLink ?? null,
+      steps: (result.steps ?? []).map(mapStep),
+      demo: false,
+    });
   } catch (err) {
     return NextResponse.json({ error: (err as Error).message }, { status: 500 });
   }

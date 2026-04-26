@@ -32,6 +32,7 @@ type PanelState =
   | { view: "quiz"; skill: SkillRequirement; workItem: WorkItem; assessment: GenerateAssessmentResponse }
   | { view: "scoring" }
   | { view: "results"; skill: SkillRequirement; workItem: WorkItem; score: ScoreAssessmentResponse & { demo?: boolean } }
+  | { view: "enrolling"; skill: SkillRequirement; workItem: WorkItem; score: ScoreAssessmentResponse & { demo?: boolean } }
   | { view: "clarifying"; goalId: string; claimLink?: string; progressLink?: string; questions: ClarificationQuestion[]; skill: SkillRequirement; demo?: boolean }
   | { view: "generating"; goalId: string; claimLink?: string; progressLink?: string; demo?: boolean }
   | { view: "plan_ready"; claimLink: string; progressLink?: string; steps?: EnrichedStep[]; demo?: boolean }
@@ -487,6 +488,7 @@ export function LearnerWorkPage() {
 
   async function handleCreatePlan(skill: SkillRequirement, workItem: WorkItem, score: ScoreAssessmentResponse & { demo?: boolean }) {
     setError(null);
+    setPanel({ view: "enrolling", skill, workItem, score });
     const seed = score.suggested_goal_seed;
     try {
       const res = await fetch("/api/enroll", {
@@ -534,6 +536,7 @@ export function LearnerWorkPage() {
       });
     } catch (err) {
       setError((err as Error).message);
+      setPanel({ view: "results", skill, workItem, score });
     }
   }
 
@@ -666,6 +669,19 @@ export function LearnerWorkPage() {
       );
     }
 
+    if (view === "enrolling") {
+      const { skill } = panel;
+      return (
+        <div className="flex flex-col items-center justify-center h-full gap-4 py-20 px-8 text-center">
+          <div className="w-12 h-12 rounded-full border-2 border-violet-600/30 border-t-violet-500 animate-spin" />
+          <div>
+            <p className="text-sm font-medium text-slate-200 mb-1">Creating your learning plan…</p>
+            <p className="text-xs text-slate-500">Building a personalised plan for <span className="text-slate-400">{skill.skill}</span>.<br />This usually takes 30–45 seconds.</p>
+          </div>
+        </div>
+      );
+    }
+
     if (view === "results") {
       const { score, skill, workItem } = panel;
       const hasGap = score.gap_bands > 0;
@@ -715,14 +731,23 @@ export function LearnerWorkPage() {
               </div>
             </div>
 
-            {hasGap && score.suggested_goal_seed && (
+            {hasGap && (
               <div className="rounded-xl border border-violet-800/60 p-5" style={{ background: "rgba(109, 40, 217, 0.08)" }}>
                 <div className="flex items-center gap-2 mb-2">
                   <UnfoldIcon className="w-4 h-4 text-violet-400" />
                   <span className="text-xs font-semibold text-violet-300">Skill gap detected — Unfold a Learning Plan</span>
                 </div>
-                <p className="text-sm font-medium text-slate-100 mb-1">{score.suggested_goal_seed.title}</p>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">{score.suggested_goal_seed.summary}</p>
+                {score.suggested_goal_seed && (
+                  <>
+                    <p className="text-sm font-medium text-slate-100 mb-1">{score.suggested_goal_seed.title}</p>
+                    <p className="text-xs text-slate-400 leading-relaxed mb-4">{score.suggested_goal_seed.summary}</p>
+                  </>
+                )}
+                {!score.suggested_goal_seed && (
+                  <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                    Create a targeted learning plan to close the {score.gap_bands}-band gap and reach {targetLabel} proficiency.
+                  </p>
+                )}
                 {error && (
                   <p className="text-xs text-red-400 mb-3 px-3 py-2 rounded-lg border border-red-900/50 bg-red-950/30">{error}</p>
                 )}
